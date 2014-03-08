@@ -4,9 +4,10 @@ import json
 import requests
 import csv
 
-# This needs a `leo_auth_token` taken from your web session
+# This needs a 'bcookie' & 'li_at' taken from your web session
 LINKEDIN_WEB_COOKIES = dict(
-    leo_auth_token='"LIM:54847616:a:21600:1380047125:8e7d114e12e6b5deadc81fe87ffb57c1955aee69"',
+    bcookie='',
+    li_at='',
 )
 MY_LINKEDIN_ID = 0
 
@@ -22,8 +23,7 @@ def get_2nd_degree_connections(user_id):
     """
     result = []
     if user_id:
-        url = 'https://www.linkedin.com/profile/profile-v2-connections?'
-        + 'id={}&offset=0&count=1000&distance=1&type=INITIAL'.format(user_id)
+        url = 'https://www.linkedin.com/profile/profile-v2-connections?id={}&offset=0&count=1000&distance=1&type=INITIAL'.format(user_id)
         r = requests.get(url, cookies=LINKEDIN_WEB_COOKIES)
         # Encode text to ASCII to avoid encoding issues with .csv
         j = json.loads(r.text.encode('ascii', 'ignore'))
